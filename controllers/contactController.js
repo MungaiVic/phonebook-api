@@ -22,4 +22,9 @@ const getSingleContact = async (req, res, next) => {
 	next();
 };
 
-module.exports = { getAllContacts, getSingleContact };
+const createNewContact = async (req, res, next) => {
+	const contact = await Contact.create(req.body);
+	res.status(201).json({ success: true, contact });
+};
+
+module.exports = { getAllContacts, getSingleContact, createNewContact };
