@@ -27,4 +27,21 @@ const createNewContact = async (req, res, next) => {
 	res.status(201).json({ success: true, contact });
 };
 
-module.exports = { getAllContacts, getSingleContact, createNewContact };
+const updateContact = async (req, res, next) => {
+	const { id: contactID } = req.params;
+	const contact = await Contact.findByIdAndUpdate(
+		{ _id: contactID },
+		req.body,
+		{
+			new: true,
+			runValidators: true,
+		}
+	);
+
+	if (!contact) {
+		return next(`No contact with id: ${contactID}`, 404);
+	}
+	res.status(200).json({ id: contact.id, success: true, data: req.body });
+};
+
+module.exports = { getAllContacts, getSingleContact, createNewContact, updateContact };
