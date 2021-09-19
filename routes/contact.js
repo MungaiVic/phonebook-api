@@ -4,10 +4,11 @@ const {
 	getAllContacts,
 	getSingleContact,
 	createNewContact,
-	updateContact
+	updateContact,
+	deleteContact
 } = require("../controllers/contactController");
 
 router.route("/").get(getAllContacts).post(createNewContact);
-router.route("/:id").get(getSingleContact).patch(updateContact);
+router.route("/:id").get(getSingleContact).patch(updateContact).delete(deleteContact);
 
 module.exports = router;

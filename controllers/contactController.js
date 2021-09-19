@@ -44,4 +44,13 @@ const updateContact = async (req, res, next) => {
 	res.status(200).json({ id: contact.id, success: true, data: req.body });
 };
 
-module.exports = { getAllContacts, getSingleContact, createNewContact, updateContact };
+const deleteContact = async (req, res, next)=>{
+	const  {id: contactID} = req.params;
+	const contact = await Contact.findByIdAndDelete({_id: contactID})
+	if(!contact){
+		return next(`No contact with id: ${contactID}`)
+	}
+	res.status(200).json({contact})
+}
+
+module.exports = { getAllContacts, getSingleContact, createNewContact, updateContact, deleteContact };
